@@ -19,9 +19,9 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/**.ts --max-warnings=0",
-    "watch": "yarn build && yarn link && nodemon",
+    "watch": "npm run build && npm run link && nodemon",
     "build": "rimraf ./dist && tsc",
-    "prepublishOnly": "yarn lint && yarn build"
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
     "homebridge-plugin"
