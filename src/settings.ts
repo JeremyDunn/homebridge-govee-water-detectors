@@ -6,4 +6,4 @@ export const PLATFORM_NAME = 'ExampleHomebridgePlugin';
 /**
  * This must match the name of your plugin as defined the package.json
  */
-export const PLUGIN_NAME = 'homebridge-plugin-name';
+export const PLUGIN_NAME = 'homebridge-govee-water-detectors';
