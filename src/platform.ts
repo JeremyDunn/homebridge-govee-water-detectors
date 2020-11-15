@@ -33,7 +33,7 @@ export class GoveeWaterDetectorsPlatform implements DynamicPlatformPlugin {
 
     this.api.on('didFinishLaunching', () => {
       this.discoverDetectors();
-      setInterval(() => this.refreshAccessoryData(), GoveeWaterDetectorAccessory.REFRESH_RATE)
+      setInterval(() => this.refreshAccessoryData(), GoveeWaterDetectorAccessory.REFRESH_RATE);
     });
   }
 
