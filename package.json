@@ -1,7 +1,7 @@
 {
   "displayName": "Homebridge Govee Water Detectors",
   "name": "homebridge-govee-water-detectors",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Govee water detectors plugin for Homebridge",
   "license": "MIT",
   "repository": {
