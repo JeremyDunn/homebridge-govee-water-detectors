@@ -71,7 +71,7 @@ export class GoveeApiClient {
   async getDeviceList(): Promise<Device[]> {
     const { data } = await this.axios.post('device/rest/devices/v1/list');
     if (!data.devices) {
-      throw new Error('Could not retrieve device list.');
+      throw new Error('Could not retrieve device list. Check your API token.');
     }
 
     // Filter out any unknown SKUs.

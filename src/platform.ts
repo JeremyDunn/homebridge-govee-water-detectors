@@ -48,23 +48,27 @@ export class GoveeWaterDetectorsPlatform implements DynamicPlatformPlugin {
    * Discover water detectors.
    */
   public async discoverDetectors() {
-    const devices = await this.apiClient.getDeviceList();
+    try {
+      const devices = await this.apiClient.getDeviceList();
 
-    for (const device of devices) {
-      const uuid = this.api.hap.uuid.generate(device.device);
-      const existingAccessory = this.accessories.find((accessory) => accessory.UUID === uuid);
+      for (const device of devices) {
+        const uuid = this.api.hap.uuid.generate(device.device);
+        const existingAccessory = this.accessories.find((accessory) => accessory.UUID === uuid);
 
-      if (existingAccessory) {
-        this.accesssoryInstances.push(new GoveeWaterDetectorAccessory(this, existingAccessory, device));
-        this.api.updatePlatformAccessories([existingAccessory]);
-        continue;
+        if (existingAccessory) {
+          this.accesssoryInstances.push(new GoveeWaterDetectorAccessory(this, existingAccessory, device));
+          this.api.updatePlatformAccessories([existingAccessory]);
+          continue;
+        }
+
+        const accessory = new this.api.platformAccessory(device.deviceName, uuid);
+        this.accesssoryInstances.push(new GoveeWaterDetectorAccessory(this, accessory, device));
+        this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+
+        // TODO: Unregister detectors no longer in device list.
       }
-
-      const accessory = new this.api.platformAccessory(device.deviceName, uuid);
-      this.accesssoryInstances.push(new GoveeWaterDetectorAccessory(this, accessory, device));
-      this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-
-      // TODO: Unregister detectors no longer in device list.
+    } catch (e) {
+      this.log.error(e.message);
     }
   }
 
@@ -72,17 +76,21 @@ export class GoveeWaterDetectorsPlatform implements DynamicPlatformPlugin {
    * Refresh accessory data from API.
    */
   async refreshAccessoryData() {
-    const devices = await this.apiClient.getDeviceList();
+    try {
+      const devices = await this.apiClient.getDeviceList();
 
-    devices.forEach((device) => {
-      const accessory = this.accesssoryInstances.find((accessory) => {
-        return accessory.device.device === device.device;
+      devices.forEach((device) => {
+        const accessory = this.accesssoryInstances.find((accessory) => {
+          return accessory.device.device === device.device;
+        });
+
+        if (accessory) {
+          accessory.updateDeviceData(device);
+        }
       });
-
-      if (accessory) {
-        accessory.updateDeviceData(device);
-      }
-    });
+    } catch (e) {
+      this.log.error(e.message);
+    }
   }
 
 }
