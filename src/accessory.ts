@@ -95,6 +95,10 @@ export class GoveeWaterDetectorAccessory {
         (!this.device.deviceExt.lastDeviceData.online || !this.device.deviceExt.lastDeviceData.gwonline) ?
           this.platform.Characteristic.StatusFault.GENERAL_FAULT :
           this.platform.Characteristic.StatusFault.NO_FAULT,
+      )
+      .setCharacteristic(
+        this.platform.Characteristic.BatteryLevel,
+        this.device.deviceExt.deviceSettings.battery,
       );
   }
 
