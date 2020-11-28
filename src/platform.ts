@@ -31,9 +31,11 @@ export class GoveeWaterDetectorsPlatform implements DynamicPlatformPlugin {
       return;
     }
 
+    const refreshFrequencyMinutes = config.refreshFrequency as number ?? 5;
+
     this.api.on('didFinishLaunching', () => {
       this.discoverDetectors();
-      setInterval(() => this.refreshAccessoryData(), GoveeWaterDetectorAccessory.REFRESH_RATE);
+      setInterval(() => this.refreshAccessoryData(), refreshFrequencyMinutes * 60000);
     });
   }
 

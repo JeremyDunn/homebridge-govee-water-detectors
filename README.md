@@ -21,9 +21,7 @@ Unofficial Homebridge plugin for Govee water leak detectors.
 At this time Govee water leak detectors are not supported through the official public REST API.
 This plugin uses the API consumed by Govee's iPhone app. 
 
-**I created this plugin for personal use and may make it private if necessary.**
-
-_The device list is filtered by SKU to only display water detectors, but don't own any other Govee devices at this time to test this._
+_The device list is filtered by SKU to only display water detectors._
 
 ## Installation
 1. Install Homebridge by following

@@ -10,6 +10,14 @@
         "type": "string",
         "required": true,
         "description": "See plugin documentation for instructions to obtain the API token for your Govee account."
+      },
+      "refreshFrequency": {
+        "title": "Refresh Frequency (minutes)",
+        "type": "integer",
+        "required": true,
+        "minimum": 1,
+        "default": 5,
+        "description": "How often to query the API to get updated device info."
       }
     }
   }
